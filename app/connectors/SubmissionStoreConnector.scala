@@ -61,7 +61,10 @@ class SubmissionStoreConnectorImpl @Inject() (
         } else if (response.status == NOT_FOUND) {
           Future.successful(None)
         } else {
-          handleError(SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body))
+          handleError(
+            SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body),
+            "Error retrieving submission from DDS Store"
+          )
         }
       }
 
@@ -80,7 +83,10 @@ class SubmissionStoreConnectorImpl @Inject() (
         } else if (response.status == NOT_FOUND) {
           Future.successful(Nil)
         } else {
-          handleError(SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body))
+          handleError(
+            SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body),
+            "Error retrieving all submissions from DDS Store"
+          )
         }
       }
 
@@ -94,7 +100,10 @@ class SubmissionStoreConnectorImpl @Inject() (
         if (response.status == NO_CONTENT) {
           Future.successful(NoContent)
         } else {
-          handleError(SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body))
+          handleError(
+            SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body),
+            "Error setting submission in DDS Store"
+          )
         }
       }
 
@@ -107,7 +116,10 @@ class SubmissionStoreConnectorImpl @Inject() (
         if (response.status == NO_CONTENT) {
           Future.successful(NoContent)
         } else {
-          handleError(SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body))
+          handleError(
+            SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body),
+            "Error deleting submission from DDS Store"
+          )
         }
       }
 }

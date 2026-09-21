@@ -46,7 +46,7 @@ class AddressLookupConnectorImpl @Inject() (httpClient: HttpClientV2, config: Ad
         .execute[HttpResponse]
         .map(Right(_))
         .recover { case NonFatal(e) =>
-          Left(handleError(Error(e)))
+          Left(handleError(Error(e), "Error initialising Address Lookup"))
         }
     }
 
@@ -57,7 +57,7 @@ class AddressLookupConnectorImpl @Inject() (httpClient: HttpClientV2, config: Ad
         .execute[HttpResponse]
         .map(Right(_))
         .recover { case NonFatal(e) =>
-          Left(handleError(Error(e)))
+          Left(handleError(Error(e), "Error retrieving Address Lookup address"))
         }
     }
 }
