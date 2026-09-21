@@ -23,13 +23,13 @@ import models.Error
 
 trait ConnectorErrorHandler extends Logging {
 
-  def handleError(error: Error): Error = {
-    logger.error(error.toException.getMessage)
+  def handleError(error: Error, context: String): Error = {
+    logger.error(s"$context: ${error.toException.getMessage}")
     error
   }
 
-  def handleError[T](e: Exception): Future[T] = {
-    logger.error(e.getMessage)
+  def handleError[T](e: Exception, context: String): Future[T] = {
+    logger.error(s"$context: ${e.getMessage}")
     Future.failed(e)
   }
 

@@ -66,7 +66,10 @@ class DigitalDisclosureServiceConnectorImpl @Inject() (
           response.status match {
             case ACCEPTED => handleResponse[SubmissionResponse.Success](response).map(_.id)
             case _        =>
-              handleError(DigitalDisclosureServiceConnector.UnexpectedResponseException(response.status, response.body))
+              handleError(
+                DigitalDisclosureServiceConnector.UnexpectedResponseException(response.status, response.body),
+                "Error submitting notification to DDS"
+              )
           }
         }
     }
@@ -95,7 +98,10 @@ class DigitalDisclosureServiceConnectorImpl @Inject() (
           response.status match {
             case ACCEPTED => handleResponse[SubmissionResponse.Success](response).map(_.id)
             case _        =>
-              handleError(DigitalDisclosureServiceConnector.UnexpectedResponseException(response.status, response.body))
+              handleError(
+                DigitalDisclosureServiceConnector.UnexpectedResponseException(response.status, response.body),
+                "Error submitting disclosure to DDS"
+              )
           }
         }
     }
@@ -117,7 +123,10 @@ class DigitalDisclosureServiceConnectorImpl @Inject() (
     response.json.validate[A] match {
       case JsSuccess(a, _) => Future.successful(a)
       case JsError(_)      =>
-        handleError(SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body))
+        handleError(
+          SubmissionStoreConnector.UnexpectedResponseException(response.status, response.body),
+          "Error handling DDS response"
+        )
     }
 
   private def getLanguage(implicit hc: HeaderCarrier): String = {
